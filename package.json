@@ -1,0 +1,38 @@
+{
+  "name": "@screenshotmax/sdk",
+  "version": "0.0.0",
+  "description": "Official TypeScript SDK for the ScreenshotMAX.com API",
+  "homepage": "https://screenshotmax.com",
+  "main": "dist/index.js",
+  "types": "dist/@types/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest",
+    "check": "biome check",
+    "version": "changeset version",
+    "release": "changeset publish"
+  },
+  "author": "Bertrand Lebonnois",
+  "license": "MIT",
+  "keywords": [
+    "screenshot"
+  ],
+  "bugs": {
+    "email": "support@screenshotmax.com",
+    "url": "https://github.com/screenshotmax/typescript-sdk/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/screenshotmax/typescript-sdk.git"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@changesets/cli": "^2.29.2",
+    "openapi-typescript": "^7.6.1",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.2"
+  },
+  "dependencies": {
+    "axios": "^1.9.0"
+  }
+}
