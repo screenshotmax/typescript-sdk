@@ -1,5 +1,5 @@
-import { createHmac } from "node:crypto";
-import axios from "axios";
+import {createHmac} from "node:crypto";
+import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
 
 export class APIClient {
   private readonly baseUrl = "https://api.screenshotmax.com";
@@ -38,50 +38,78 @@ export class APIClient {
     ).toString();
   }
 
+  generateUrl(path: string, params: Record<string, unknown> = {}): string {
+    const query = this.computeQuery({
+      ...params,
+      access_key: this.accessKey,
+    });
+
+    return `${this.baseUrl}${path}?${query}`;
+  }
+
+  generateSignedUrl(path: string, params: Record<string, unknown> = {}): string {
+    const query = this.computeQuery({
+      ...params,
+      access_key: this.accessKey,
+    });
+    const signature = this.signRequest(query);
+
+    return `${this.baseUrl}${path}?${query}&signature=${signature}`;
+  }
+
   async get<T>(
     path: string,
     options: Record<string, unknown> = {},
     isSigned = false,
-  ): Promise<T> {
-    const query = this.computeQuery(options);
-    const signature = isSigned ? this.signRequest(query) : "";
+    config: AxiosRequestConfig = {}
+  ): Promise<{data: T, headers: Record<string, unknown>}> {
+    const url = isSigned
+      ? this.generateSignedUrl(path, options)
+      : this.generateUrl(path, options);
 
-    let url = `${this.baseUrl}${path}`;
-    url += query ? `?${query}` : "";
-    url += isSigned ? `&signature=${signature}` : "";
-
-    const response = await axios.get(url, {
-      headers: {
-        "X-Access-Key": this.accessKey,
-      },
+    const response: AxiosResponse<T> = await axios.get(url, {
+      ...config,
     });
 
-    return response.data;
+    return {
+      data: response.data,
+      headers: response.headers as Record<string, unknown>,
+    };
   }
 
   async post<T>(
     path: string,
     options: Record<string, unknown> = {},
-  ): Promise<T> {
+    config: AxiosRequestConfig = {}
+  ): Promise<{data: T; headers: Record<string, unknown>}> {
     const url = `${this.baseUrl}${path}`;
 
-    const response = await axios.post(url, {
+    const response: AxiosResponse<T> = await axios.post(url, options, {
+      ...config,
       headers: {
         "X-Access-Key": this.accessKey,
         "Content-Type": "application/json",
+        ...(config.headers || {}),
       },
-      data: options,
     });
 
-    return response.data;
+    return {
+      data: response.data,
+      headers: response.headers as Record<string, unknown>,
+    };
   }
 
-  async delete<T>(path: string): Promise<T> {
+  async delete<T>(
+    path: string,
+    config: AxiosRequestConfig = {}
+  ): Promise<T> {
     const url = `${this.baseUrl}${path}`;
 
-    const response = await axios.delete(url, {
+    const response: AxiosResponse<T> = await axios.delete(url, {
+      ...config,
       headers: {
         "X-Access-Key": this.accessKey,
+        ...(config.headers || {}),
       },
     });
 
@@ -91,15 +119,17 @@ export class APIClient {
   async patch<T>(
     path: string,
     options: Record<string, unknown> = {},
+    config: AxiosRequestConfig = {}
   ): Promise<T> {
     const url = `${this.baseUrl}${path}`;
 
-    const response = await axios.patch(url, {
+    const response: AxiosResponse<T> = await axios.patch(url, options, {
+      ...config,
       headers: {
         "X-Access-Key": this.accessKey,
         "Content-Type": "application/json",
+        ...(config.headers || {}),
       },
-      data: options,
     });
 
     return response.data;

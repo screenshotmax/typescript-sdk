@@ -5,7 +5,7 @@ export class DeviceService {
 
   constructor(private client: APIClient) { }
 
-  get(): Promise<string> {
-    return this.client.get<string>(this.path);
+  async get(): Promise<string> {
+    return (await this.client.get<string>(this.path)).data;
   }
 }

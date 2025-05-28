@@ -1,6 +1,6 @@
-import { type Mock, beforeEach, describe, expect, it, vi } from "vitest";
-import type { APIClient } from "../../client";
-import { UsageService } from "../usage";
+import {type Mock, beforeEach, describe, expect, it, vi} from "vitest";
+import type {APIClient} from "../../client";
+import {UsageService} from "../usage";
 
 describe("UsageService", () => {
   let client: APIClient;
@@ -15,7 +15,7 @@ describe("UsageService", () => {
   });
 
   it("should call client.get with correct parameters", async () => {
-    (client.get as unknown as Mock).mockResolvedValue("get result");
+    (client.get as unknown as Mock).mockResolvedValue({data: "get result"});
 
     const result = await service.get();
 
