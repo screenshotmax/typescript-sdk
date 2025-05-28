@@ -3,14 +3,14 @@
 [![build](https://github.com/screenshotmax/typescript-sdk/actions/workflows/build.yaml/badge.svg)](https://github.com/screenshotmax/typescript-sdk/actions/workflows/build.yaml)
 [![test](https://github.com/screenshotmax/typescript-sdk/actions/workflows/test.yaml/badge.svg)](https://github.com/screenshotmax/typescript-sdk/actions/workflows/test.yaml)
 
-This is the official JavaScript & TypeScript SDK for the [Screenshot API](https://screenshotmax.com/).
+This is the official JavaScript & TypeScript SDK for the [ScreenshotMAX API](https://screenshotmax.com/).
 
 It allows you to easily capture high-quality screenshots of any URL directly from your applications.
 The SDK handles authentication, request signing, and provides a simple interface to integrate ScreenshotMAX’s powerful screenshot services into your TypeScript or JavaScript projects.
 
 Get started in minutes. Just [sign up](https://screenshotmax.com) to receive your access and secret keys, import the client, and you’re ready to capture screenshots.”
 
-The SDK client is synchronized with the latest [screenshot API options](https://docs.screenshotmax.com/guides/start/introduction).
+The SDK client is synchronized with the latest [ScreenshotMAX API options](https://docs.screenshotmax.com/guides/start/introduction).
 
 
 ## Installation
