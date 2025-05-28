@@ -6,15 +6,15 @@ export class TaskService {
 
   constructor(private client: APIClient) { }
 
-  getTasks(): Promise<string> {
-    return this.client.get<string>(this.path);
+  async getTasks(): Promise<string> {
+    return (await this.client.get<string>(this.path)).data;
   }
 
-  getTask(taskId: number): Promise<string> {
-    return this.client.get<string>(`${this.path}/${taskId}`);
+  async getTask(taskId: number): Promise<string> {
+    return (await this.client.get<string>(`${this.path}/${taskId}`)).data;
   }
 
-  createTask(
+  async createTask(
     options: Omit<
       NonNullable<
         paths[this["path"]]["post"]["requestBody"]
@@ -22,14 +22,14 @@ export class TaskService {
       "access_key"
     >,
   ): Promise<string> {
-    return this.client.post<string>(this.path, options);
+    return (await this.client.post<string>(this.path, options)).data;
   }
 
-  deleteTask(taskId: number): Promise<string> {
-    return this.client.delete<string>(`${this.path}/${taskId}`);
+  async deleteTask(taskId: number): Promise<void> {
+    return this.client.delete<void>(`${this.path}/${taskId}`);
   }
 
-  updateTask(
+  async updateTask(
     taskId: number,
     options: Omit<
       NonNullable<

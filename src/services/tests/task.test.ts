@@ -1,9 +1,9 @@
-import { patch } from "axios";
-import { type Mock, beforeEach, describe, expect, it, vi } from "vitest";
-import type { APIClient } from "../../client";
-import { TaskService } from "../task";
+import {patch} from "axios";
+import {type Mock, beforeEach, describe, expect, it, vi} from "vitest";
+import type {APIClient} from "../../client";
+import {TaskService} from "../task";
 
-describe("UsageService", () => {
+describe("TaskService", () => {
   let client: APIClient;
   let service: TaskService;
 
@@ -18,7 +18,7 @@ describe("UsageService", () => {
   });
 
   it("should call client.get with correct parameters", async () => {
-    (client.get as unknown as Mock).mockResolvedValue("get tasks");
+    (client.get as unknown as Mock).mockResolvedValue({data: "get tasks"});
 
     const result = await service.getTasks();
 
@@ -28,7 +28,9 @@ describe("UsageService", () => {
 
   it("should call client.get with correct parameters", async () => {
     const taskId = 500_00_001;
-    (client.get as unknown as Mock).mockResolvedValue("get task");
+    (client.get as unknown as Mock).mockResolvedValue({
+      data: "get task"
+    });
 
     const result = await service.getTask(taskId);
 
@@ -45,7 +47,7 @@ describe("UsageService", () => {
       timezone: "Etc/UTC",
       enabled: true,
     } as const;
-    (client.post as unknown as Mock).mockResolvedValue(body);
+    (client.post as unknown as Mock).mockResolvedValue({data: body});
 
     const result = await service.createTask(body);
 
@@ -77,11 +79,11 @@ describe("UsageService", () => {
 
   it("should call client.delete with correct parameters", async () => {
     const taskId = 500_00_001;
-    (client.delete as unknown as Mock).mockResolvedValue("delete task");
+    (client.delete as unknown as Mock).mockResolvedValue(undefined);
 
     const result = await service.deleteTask(taskId);
 
     expect(client.delete).toHaveBeenCalledWith(`${service.path}/${taskId}`);
-    expect(result).toBe("delete task");
+    expect(result).toBeUndefined();
   });
 });

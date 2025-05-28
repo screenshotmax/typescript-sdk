@@ -1,6 +1,6 @@
 {
   "name": "@screenshotmax/sdk",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Official TypeScript SDK for the ScreenshotMAX.com API",
   "homepage": "https://screenshotmax.com",
   "main": "dist/index.js",
@@ -15,7 +15,10 @@
   "author": "Bertrand Lebonnois",
   "license": "MIT",
   "keywords": [
-    "screenshot"
+    "screenshot",
+    "screenshots",
+    "web scraping",
+    "html to pdf"
   ],
   "bugs": {
     "email": "support@screenshotmax.com",
