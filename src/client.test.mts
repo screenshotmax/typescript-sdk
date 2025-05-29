@@ -1,7 +1,7 @@
 import axios from "axios";
 import {createHmac} from "node:crypto";
 import {type Mock, beforeEach, describe, expect, it, vi} from "vitest";
-import {APIClient} from "./client";
+import {APIClient} from "./client.mjs";
 
 vi.mock("axios");
 

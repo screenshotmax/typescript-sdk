@@ -1,11 +1,11 @@
-import { APIClient } from "./client";
-import { DeviceService } from "./services/device";
-import { PDFService } from "./services/pdf";
-import { ScrapeService } from "./services/scrape";
-import { ScreencastService } from "./services/screencast";
-import { ScreenshotService } from "./services/screenshot";
-import { TaskService } from "./services/task";
-import { UsageService } from "./services/usage";
+import {APIClient} from "./client.mjs";
+import {DeviceService} from "./services/device.mjs";
+import {PDFService} from "./services/pdf.mjs";
+import {ScrapeService} from "./services/scrape.mjs";
+import {ScreencastService} from "./services/screencast.mjs";
+import {ScreenshotService} from "./services/screenshot.mjs";
+import {TaskService} from "./services/task.mjs";
+import {UsageService} from "./services/usage.mjs";
 
 export class SDK {
   public screenshot: ScreenshotService;

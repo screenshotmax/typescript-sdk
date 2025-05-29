@@ -1,24 +1,24 @@
 import {AxiosRequestConfig} from "axios";
-import type {APIClient} from "../client";
-import type {paths} from "../types";
+import type {APIClient} from "../client.mjs";
+import type {paths} from "../types.mjs";
 
-type ScrapeOptionsType = Omit<
-  NonNullable<paths["/v1/scrape"]["get"]["parameters"]["query"]>,
+type PDFOptionsType = Omit<
+  NonNullable<paths["/v1/pdf"]["get"]["parameters"]["query"]>,
   "access_key"
 >;
 
-export class ScrapeService {
-  public path = "/v1/scrape" as const;
+export class PDFService {
+  public path = "/v1/pdf" as const;
   private config: AxiosRequestConfig = {
     responseType: "text",
     responseEncoding: "binary" as unknown as BufferEncoding,
   };
-  private options: ScrapeOptionsType | null = null;
+  private options: PDFOptionsType | null = null;
 
   constructor(private client: APIClient) { }
 
   setOptions(
-    options: ScrapeOptionsType,
+    options: PDFOptionsType,
   ): this {
     this.options = options;
     return this;
@@ -33,12 +33,12 @@ export class ScrapeService {
   }
 
   fetch(signed = true): Promise<{
-    data: string;
+    data: Buffer | string;
     headers: Record<string, unknown>;
   }> {
     if (!this.options) throw new Error("Options not set.");
 
-    return this.client.get<string>(
+    return this.client.get<Buffer | string>(
       this.path,
       this.options,
       signed,

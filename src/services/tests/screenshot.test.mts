@@ -1,14 +1,14 @@
 import {beforeEach, describe, expect, it, vi} from "vitest";
-import type {APIClient} from "../../client";
-import {PDFService} from "../pdf";
+import type {APIClient} from "../../client.mjs";
+import {ScreenshotService} from "../screenshot.mjs";
 
 const sampleOptions = {
   url: "https://example.com",
 };
 
-describe("PDFService", () => {
+describe("ScreenshotService", () => {
   let client: APIClient;
-  let service: PDFService;
+  let service: ScreenshotService;
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -17,7 +17,7 @@ describe("PDFService", () => {
       generateSignedUrl: vi.fn(),
       get: vi.fn(),
     } as unknown as APIClient;
-    service = new PDFService(client);
+    service = new ScreenshotService(client);
   });
 
   it("should set options", () => {
@@ -35,7 +35,7 @@ describe("PDFService", () => {
     service.setOptions(sampleOptions as any);
     const url = service.getUrl(false);
 
-    expect(client.generateUrl).toHaveBeenCalledWith("/v1/pdf", sampleOptions);
+    expect(client.generateUrl).toHaveBeenCalledWith("/v1/screenshot", sampleOptions);
     expect(url).toBe("http://unsigned.url");
   });
 
@@ -45,7 +45,7 @@ describe("PDFService", () => {
     service.setOptions(sampleOptions as any);
     const url = service.getUrl(true);
 
-    expect(client.generateSignedUrl).toHaveBeenCalledWith("/v1/pdf", sampleOptions);
+    expect(client.generateSignedUrl).toHaveBeenCalledWith("/v1/screenshot", sampleOptions);
     expect(url).toBe("http://signed.url");
   });
 
@@ -55,8 +55,8 @@ describe("PDFService", () => {
 
   it("should call client.get in fetch() with signed = true", async () => {
     const mockResponse = {
-      data: Buffer.from("PDF content"),
-      headers: {"content-type": "application/pdf"},
+      data: Buffer.from("JPG content"),
+      headers: {"content-type": "image/jpeg"},
     };
 
     vi.mocked(client.get).mockResolvedValue(mockResponse);
@@ -65,7 +65,7 @@ describe("PDFService", () => {
     const result = await service.fetch(true);
 
     expect(client.get).toHaveBeenCalledWith(
-      "/v1/pdf",
+      "/v1/screenshot",
       sampleOptions,
       true,
       expect.objectContaining({

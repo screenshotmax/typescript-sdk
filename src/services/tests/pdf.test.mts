@@ -1,14 +1,14 @@
 import {beforeEach, describe, expect, it, vi} from "vitest";
-import type {APIClient} from "../../client";
-import {ScrapeService} from "../scrape";
+import type {APIClient} from "../../client.mjs";
+import {PDFService} from "../pdf.mjs";
 
 const sampleOptions = {
   url: "https://example.com",
 };
 
-describe("ScrapeService", () => {
+describe("PDFService", () => {
   let client: APIClient;
-  let service: ScrapeService;
+  let service: PDFService;
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -17,7 +17,7 @@ describe("ScrapeService", () => {
       generateSignedUrl: vi.fn(),
       get: vi.fn(),
     } as unknown as APIClient;
-    service = new ScrapeService(client);
+    service = new PDFService(client);
   });
 
   it("should set options", () => {
@@ -35,7 +35,7 @@ describe("ScrapeService", () => {
     service.setOptions(sampleOptions as any);
     const url = service.getUrl(false);
 
-    expect(client.generateUrl).toHaveBeenCalledWith("/v1/scrape", sampleOptions);
+    expect(client.generateUrl).toHaveBeenCalledWith("/v1/pdf", sampleOptions);
     expect(url).toBe("http://unsigned.url");
   });
 
@@ -45,7 +45,7 @@ describe("ScrapeService", () => {
     service.setOptions(sampleOptions as any);
     const url = service.getUrl(true);
 
-    expect(client.generateSignedUrl).toHaveBeenCalledWith("/v1/scrape", sampleOptions);
+    expect(client.generateSignedUrl).toHaveBeenCalledWith("/v1/pdf", sampleOptions);
     expect(url).toBe("http://signed.url");
   });
 
@@ -55,8 +55,8 @@ describe("ScrapeService", () => {
 
   it("should call client.get in fetch() with signed = true", async () => {
     const mockResponse = {
-      data: "HTML content",
-      headers: {"content-type": "text/html"},
+      data: Buffer.from("PDF content"),
+      headers: {"content-type": "application/pdf"},
     };
 
     vi.mocked(client.get).mockResolvedValue(mockResponse);
@@ -65,7 +65,7 @@ describe("ScrapeService", () => {
     const result = await service.fetch(true);
 
     expect(client.get).toHaveBeenCalledWith(
-      "/v1/scrape",
+      "/v1/pdf",
       sampleOptions,
       true,
       expect.objectContaining({

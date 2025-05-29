@@ -1,14 +1,14 @@
 import {beforeEach, describe, expect, it, vi} from "vitest";
-import type {APIClient} from "../../client";
-import {ScreenshotService} from "../screenshot";
+import type {APIClient} from "../../client.mjs";
+import {ScrapeService} from "../scrape.mjs";
 
 const sampleOptions = {
   url: "https://example.com",
 };
 
-describe("ScreenshotService", () => {
+describe("ScrapeService", () => {
   let client: APIClient;
-  let service: ScreenshotService;
+  let service: ScrapeService;
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -17,7 +17,7 @@ describe("ScreenshotService", () => {
       generateSignedUrl: vi.fn(),
       get: vi.fn(),
     } as unknown as APIClient;
-    service = new ScreenshotService(client);
+    service = new ScrapeService(client);
   });
 
   it("should set options", () => {
@@ -35,7 +35,7 @@ describe("ScreenshotService", () => {
     service.setOptions(sampleOptions as any);
     const url = service.getUrl(false);
 
-    expect(client.generateUrl).toHaveBeenCalledWith("/v1/screenshot", sampleOptions);
+    expect(client.generateUrl).toHaveBeenCalledWith("/v1/scrape", sampleOptions);
     expect(url).toBe("http://unsigned.url");
   });
 
@@ -45,7 +45,7 @@ describe("ScreenshotService", () => {
     service.setOptions(sampleOptions as any);
     const url = service.getUrl(true);
 
-    expect(client.generateSignedUrl).toHaveBeenCalledWith("/v1/screenshot", sampleOptions);
+    expect(client.generateSignedUrl).toHaveBeenCalledWith("/v1/scrape", sampleOptions);
     expect(url).toBe("http://signed.url");
   });
 
@@ -55,8 +55,8 @@ describe("ScreenshotService", () => {
 
   it("should call client.get in fetch() with signed = true", async () => {
     const mockResponse = {
-      data: Buffer.from("JPG content"),
-      headers: {"content-type": "image/jpeg"},
+      data: "HTML content",
+      headers: {"content-type": "text/html"},
     };
 
     vi.mocked(client.get).mockResolvedValue(mockResponse);
@@ -65,7 +65,7 @@ describe("ScreenshotService", () => {
     const result = await service.fetch(true);
 
     expect(client.get).toHaveBeenCalledWith(
-      "/v1/screenshot",
+      "/v1/scrape",
       sampleOptions,
       true,
       expect.objectContaining({

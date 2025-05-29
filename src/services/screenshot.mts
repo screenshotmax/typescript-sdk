@@ -1,6 +1,7 @@
 import {AxiosRequestConfig} from "axios";
-import type {APIClient} from "../client";
-import type {paths} from "../types";
+import type {APIClient} from "../client.mjs";
+import type {paths} from "../types.mjs";
+
 
 type ScreenshotOptionsType = Omit<
   NonNullable<paths["/v1/screenshot"]["get"]["parameters"]["query"]>,

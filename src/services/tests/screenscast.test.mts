@@ -1,6 +1,6 @@
 import {beforeEach, describe, expect, it, vi} from "vitest";
-import type {APIClient} from "../../client";
-import {ScreencastService} from "../screencast";
+import type {APIClient} from "../../client.mjs";
+import {ScreencastService} from "../screencast.mjs";
 
 const sampleOptions = {
   url: "https://example.com",

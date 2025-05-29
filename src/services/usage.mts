@@ -1,7 +1,7 @@
-import type {APIClient} from "../client";
+import type {APIClient} from "../client.mjs";
 
-export class DeviceService {
-  public path = "/v1/devices" as const;
+export class UsageService {
+  public path = "/v1/usage" as const;
 
   constructor(private client: APIClient) { }
 

@@ -1,7 +1,6 @@
-import {patch} from "axios";
 import {type Mock, beforeEach, describe, expect, it, vi} from "vitest";
-import type {APIClient} from "../../client";
-import {TaskService} from "../task";
+import type {APIClient} from "../../client.mjs";
+import {TaskService} from "../task.mjs";
 
 describe("TaskService", () => {
   let client: APIClient;

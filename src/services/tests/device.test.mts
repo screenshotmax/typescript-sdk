@@ -1,6 +1,6 @@
 import {type Mock, beforeEach, describe, expect, it, vi} from "vitest";
-import type {APIClient} from "../../client";
-import {DeviceService} from "../device";
+import type {APIClient} from "../../client.mjs";
+import {DeviceService} from "../device.mjs";
 
 describe("DeviceService", () => {
   let client: APIClient;

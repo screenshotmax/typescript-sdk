@@ -1,5 +1,5 @@
-import type {APIClient} from "../client";
-import type {paths} from "../types";
+import type {APIClient} from "../client.mjs";
+import type {paths} from "../types.mjs";
 
 export class TaskService {
   public path = "/v1/tasks" as const;
