@@ -1,7 +1,7 @@
 # ScreenshotMAX TypeScript SDK
 
-[![build](https://github.com/screenshotmax/typescript-sdk/actions/workflows/build.yaml/badge.svg)](https://github.com/screenshotmax/typescript-sdk/actions/workflows/build.yaml)
-[![test](https://github.com/screenshotmax/typescript-sdk/actions/workflows/test.yaml/badge.svg)](https://github.com/screenshotmax/typescript-sdk/actions/workflows/test.yaml)
+[![build](https://github.com/screenshotmax/typescript-sdk/actions/workflows/build.yml/badge.svg)](https://github.com/screenshotmax/typescript-sdk/actions/workflows/build.yml)
+[![test](https://github.com/screenshotmax/typescript-sdk/actions/workflows/test.yml/badge.svg)](https://github.com/screenshotmax/typescript-sdk/actions/workflows/test.yml)
 
 This is the official JavaScript & TypeScript SDK for the [ScreenshotMAX API](https://screenshotmax.com/).
 
@@ -37,7 +37,8 @@ sdk.screenshot.setOptions({
   format: "png"
 });
 
-// generate URL (https://api.screenshotmax.com/v1/screenshot?url=https%3A%2F%2Fexample.com&image_width=1280&image_height=720&format=png&image_quality=80&access_key=<ACCESS_KEY>&signature=370f5b161bc59eed13b76........1f778635d7fc595dbab12)
+// optionnaly: generate signed URL 
+// (https://api.screenshotmax.com/v1/screenshot?url=https%3A%2F%2Fexample.com&format=png&access_key=<ACCESS_KEY>&signature=370f5b161bc59eed13b76........1f778635d7fc595dbab12)
 const url = sdk.screenshot.getUrl();
 
 // generate screenshot
@@ -77,7 +78,7 @@ const sdk = new SDK("<ACCESS_KEY>", "<SECRET_KEY>");
 const result = await sdk.pdf
   .setOptions({
     url: "https://example.com",
-    paper_format: "letter",
+    pdf_paper_format: "letter",
   })
   .fetch();
 
