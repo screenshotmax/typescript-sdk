@@ -1,4 +1,4 @@
-# ScreenshotMAX Typescript-sdk
+# ScreenshotMAX TypeScript SDK
 
 [![build](https://github.com/screenshotmax/typescript-sdk/actions/workflows/build.yaml/badge.svg)](https://github.com/screenshotmax/typescript-sdk/actions/workflows/build.yaml)
 [![test](https://github.com/screenshotmax/typescript-sdk/actions/workflows/test.yaml/badge.svg)](https://github.com/screenshotmax/typescript-sdk/actions/workflows/test.yaml)
@@ -16,13 +16,15 @@ The SDK client is synchronized with the latest [ScreenshotMAX API options](https
 ## Installation
 
 ```shell
-npm install @screenshotmax/sdk --save
+npm install @screenshotmax/sdk
 ```
 
 ## Usage
 
-Generate a screenshot URL without executing the request. Or download the screenshot. It is up to you: 
-```javascript
+Use the SDK to generate signed or unsigned URLs for screenshots, PDFs, web scraping, or animated screenshot—without executing the request. Or fetch and download the result directly. You have full control over when and how each capture runs.
+
+### Screenshot example
+```typescript
 import fs from "node:fs";
 import { SDK } from "@screenshotmax/sdk";
 
@@ -35,21 +37,82 @@ sdk.screenshot.setOptions({
   format: "png"
 });
 
-// generate URL (https://api.screenshotmax.com/v1/screenshot?access_key=<ACCESS_KEY>&url=https://example.com&format=png)
+// generate URL (https://api.screenshotmax.com/v1/screenshot?url=https%3A%2F%2Fexample.com&image_width=1280&image_height=720&format=png&image_quality=80&access_key=<ACCESS_KEY>&signature=370f5b161bc59eed13b76........1f778635d7fc595dbab12)
 const url = sdk.screenshot.getUrl();
 
 // generate screenshot
-const screenshot = await sdk.screenshot.fetch();
+const result = await sdk.screenshot.fetch();
 
-// you can also chain 
-// const screenshot = sdk.screenshot.options({
-//   url: "https://example.com",
-//   format: "png"
-// }).fetch();
-
-fs.writeFileSync("screenshot.jpg", Buffer.from(screenshot.data, "binary"));
+fs.writeFileSync("screenshot.png", Buffer.from(result.data, "binary"));
 ```
 
-## License 
+### Web scraping example
+```typescript
+import fs from "node:fs";
+import { SDK } from "@screenshotmax/sdk";
+
+// create API client 
+const sdk = new SDK("<ACCESS_KEY>", "<SECRET_KEY>");
+
+// set up options
+sdk.scrape.setOptions({
+  url: "https://example.com",
+  format: "html",
+});
+
+const result = await sdk.scrape.fetch();
+
+fs.writeFileSync("scrape.html", result.data);
+```
+
+### PDF generation example
+```typescript
+import fs from "node:fs";
+import { SDK } from "@screenshotmax/sdk";
+
+// create API client 
+const sdk = new SDK("<ACCESS_KEY>", "<SECRET_KEY>");
+
+// set up options and scrape content (chaining)
+const result = await sdk.pdf
+  .setOptions({
+    url: "https://example.com",
+    paper_format: "letter",
+  })
+  .fetch();
+
+fs.writeFileSync("pdf.pdf", Buffer.from(result.data, "binary"));
+```
+
+### Scheduled task example
+
+```typescript
+import { SDK } from "@screenshotmax/sdk";
+
+// create API client 
+const sdk = new SDK("<ACCESS_KEY>", "<SECRET_KEY>");
+
+// get all tasks from account
+const tasks = await sdk.task.getTasks();
+// {
+//   tasks: [
+//     {
+//       id: 5678133109850112,
+//       name: 'My cron test',
+//       api: 'screenshot',
+//       query: 'url=https%3A%2F%2Fexample.com',
+//       frequency: 'every_day',
+//       crontab: '25 13 * * *',
+//       timezone: 'Etc/UTC',
+//       enabled: true,
+//       created: 1747229104,
+//       last_run: 1748438712,
+//       runs: 16
+//     }
+//   ]
+// }
+```
+
+## License
 
 `@screenshotmax/sdk` is released under [the MIT license](LICENSE).
