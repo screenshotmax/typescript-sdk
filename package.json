@@ -1,6 +1,6 @@
 {
   "name": "@screenshotmax/sdk",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Official TypeScript SDK for the ScreenshotMAX.com API",
   "homepage": "https://screenshotmax.com",
   "main": "dist/index.js",
@@ -10,7 +10,11 @@
     "test": "vitest",
     "check": "biome check",
     "version": "changeset version",
-    "release": "changeset publish"
+    "release": "changeset publish",
+    "prepublishOnly": "npm run test && npm run build"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "author": "Bertrand Lebonnois",
   "license": "MIT",
