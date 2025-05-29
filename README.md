@@ -1,4 +1,4 @@
-# typescript-sdk
+# ScreenshotMAX Typescript-sdk
 
 [![build](https://github.com/screenshotmax/typescript-sdk/actions/workflows/build.yaml/badge.svg)](https://github.com/screenshotmax/typescript-sdk/actions/workflows/build.yaml)
 [![test](https://github.com/screenshotmax/typescript-sdk/actions/workflows/test.yaml/badge.svg)](https://github.com/screenshotmax/typescript-sdk/actions/workflows/test.yaml)
@@ -30,7 +30,7 @@ import { SDK } from "@screenshotmax/sdk";
 const sdk = new SDK("<ACCESS_KEY>", "<SECRET_KEY>");
 
 // set up options
-sdk.screenshot.options({
+sdk.screenshot.setOptions({
   url: "https://example.com",
   format: "png"
 });
@@ -40,6 +40,12 @@ const url = sdk.screenshot.getUrl();
 
 // generate screenshot
 const screenshot = await sdk.screenshot.fetch();
+
+// you can also chain 
+// const screenshot = sdk.screenshot.options({
+//   url: "https://example.com",
+//   format: "png"
+// }).fetch();
 
 fs.writeFileSync("screenshot.jpg", Buffer.from(screenshot.data, "binary"));
 ```
