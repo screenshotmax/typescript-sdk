@@ -910,18 +910,6 @@ paths:
           name: webhook_signed
           required: false
         - schema:
-            type: boolean
-            default: false
-          in: query
-          name: internal_is_scheduled
-          required: false
-        - schema:
-            type: boolean
-            default: true
-          in: query
-          name: internal_is_stored
-          required: false
-        - schema:
             type: string
             maxLength: 64
           in: query
@@ -1776,12 +1764,6 @@ paths:
                   type: string
                   format: uri
                 webhook_signed:
-                  type: boolean
-                  default: true
-                internal_is_scheduled:
-                  type: boolean
-                  default: false
-                internal_is_stored:
                   type: boolean
                   default: true
                 html:
@@ -2755,18 +2737,6 @@ paths:
           name: webhook_signed
           required: false
         - schema:
-            type: boolean
-            default: false
-          in: query
-          name: internal_is_scheduled
-          required: false
-        - schema:
-            type: boolean
-            default: true
-          in: query
-          name: internal_is_stored
-          required: false
-        - schema:
             type: string
             maxLength: 64
           in: query
@@ -3627,12 +3597,6 @@ paths:
                   type: string
                   format: uri
                 webhook_signed:
-                  type: boolean
-                  default: true
-                internal_is_scheduled:
-                  type: boolean
-                  default: false
-                internal_is_stored:
                   type: boolean
                   default: true
                 format:
@@ -4568,18 +4532,6 @@ paths:
           name: webhook_signed
           required: false
         - schema:
-            type: boolean
-            default: false
-          in: query
-          name: internal_is_scheduled
-          required: false
-        - schema:
-            type: boolean
-            default: true
-          in: query
-          name: internal_is_stored
-          required: false
-        - schema:
             type: string
             maxLength: 64
           in: query
@@ -5347,12 +5299,6 @@ paths:
                   type: string
                   format: uri
                 webhook_signed:
-                  type: boolean
-                  default: true
-                internal_is_scheduled:
-                  type: boolean
-                  default: false
-                internal_is_stored:
                   type: boolean
                   default: true
                 format:
@@ -6287,18 +6233,6 @@ paths:
           name: webhook_signed
           required: false
         - schema:
-            type: boolean
-            default: false
-          in: query
-          name: internal_is_scheduled
-          required: false
-        - schema:
-            type: boolean
-            default: true
-          in: query
-          name: internal_is_stored
-          required: false
-        - schema:
             type: string
             maxLength: 64
           in: query
@@ -7113,12 +7047,6 @@ paths:
                   type: string
                   format: uri
                 webhook_signed:
-                  type: boolean
-                  default: true
-                internal_is_scheduled:
-                  type: boolean
-                  default: false
-                internal_is_stored:
                   type: boolean
                   default: true
                 html:
