@@ -34,7 +34,7 @@
     "url": "git+https://github.com/screenshotmax/typescript-sdk.git"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
+    "@biomejs/biome": "^2.0.6",
     "@changesets/cli": "^2.29.4",
     "@types/node": "^24.0.8",
     "openapi-typescript": "^7.8.0",
