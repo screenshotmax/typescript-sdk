@@ -1,6 +1,6 @@
 {
   "name": "@screenshotmax/sdk",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Official TypeScript SDK for the ScreenshotMAX.com API",
   "homepage": "https://screenshotmax.com",
   "main": "dist/index.js",
